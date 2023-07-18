@@ -59,7 +59,7 @@ function deploy(config, ready) {
         request.on('end', () => {
             if (config.log !== "") {
                 let now = config.logTime ? `[${formatTime.format(new Date())}] ` : '';
-                txtLogger.writeSync(`${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`);
+                txtLogger.write(`${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`);
             }
 
             if (config.noCache) {
