@@ -52,7 +52,7 @@ function deploy(config, ready) {
         request.on('end', () => {
             if (config.log !== "") {
                 let now = config.logTime ? `[${formatTime.format(new Date())}] ` : '';
-				fs.writeFileSync(config.log, `${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`);
+				fs.writeFileSync(config.log, `${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`, { flag: "as" });
             }
 
             if (config.noCache) {
