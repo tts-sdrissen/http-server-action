@@ -42,13 +42,6 @@ function deploy(config, ready) {
         return path.posix.join(...url.split(path.sep));
     }
     
-    let txtLogger = undefined;
-    if (config.log !== "") {
-        txtLogger = fs.createWriteStream(config.log, {
-            flags: 'as'
-        });
-    }
-
     server.on('request', (request, response) => {
         let data = '';
 
@@ -59,7 +52,7 @@ function deploy(config, ready) {
         request.on('end', () => {
             if (config.log !== "") {
                 let now = config.logTime ? `[${formatTime.format(new Date())}] ` : '';
-                txtLogger.write(`${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`);
+				fs.writeFileSync(config.log, `${now}${request.method} ${request.url} ${JSON.stringify(data)}\n`);
             }
 
             if (config.noCache) {
